@@ -1,0 +1,4 @@
+*.md
+*.pem
+__pycache__/*
+.vscode
