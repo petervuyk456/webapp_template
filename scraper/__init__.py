@@ -1,1 +1,0 @@
-from scraper.api import app

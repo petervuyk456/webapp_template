@@ -1,0 +1,35 @@
+version: "3.7"
+services:
+
+  node:
+    build: 
+      context: ./site
+    env_file: 
+      - ./environments/.env.node
+    ports:
+      - "3000:3000"
+    depends_on:
+      - apis
+  
+  scraper-api:
+    build:
+      context: ./apis/scraper
+    env_file: 
+      - ./environments/.env.api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+    
+  mongo:
+    image: "mongo"
+    container_name: "mongo"
+    env_file: 
+      - ./environments/.mongo.env
+    volumes:
+      - mongo:/data/db
+    ports:
+      - '27017-27019:27017-27019'
+
+volumes:
+  mongo:
