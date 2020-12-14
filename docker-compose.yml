@@ -1,28 +1,49 @@
 version: "3.7"
 services:
-  node:
+  react:
+    container_name: "react"
     build: 
-      context: ./site
+      context: ./site/client
+      dockerfile: Dockerfile
     env_file: 
       - ./environments/.env.node
     ports:
-      - "3000:3000"
+      - "3000:8080"
+    volumes:
+      - ./site/client:/usr/src/app
     depends_on:
-      - scraper-api
+      - node
+
+  node:
+    container_name: "node"
+    build: 
+      context: ./site/server
+      dockerfile: Dockerfile
+    env_file: 
+      - ./environments/.env.node
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./site/server:/usr/src/app
+    depends_on:
+      - api
   
-  scraper-api:
+  api:
+    container_name: "api"
     build:
       context: ./apis/scraper
+      dockerfile: Dockerfile
+    command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
     env_file: 
       - ./environments/.env.api
     ports:
-      - "8000:8000"
+      - "8002:8000"
     depends_on:
       - mongo
     
   mongo:
-    image: "mongo"
     container_name: "mongo"
+    image: "mongo"
     env_file: 
       - ./environments/.env.mongo
     volumes:
