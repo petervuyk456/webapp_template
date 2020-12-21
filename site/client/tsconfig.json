@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+      // Infer types from .js files
+      "allowJs": true,
+      // Allow absolute path imports from the src folder
+      // Paths still need setup in webpack.config
+      "baseUrl": "src",
+      // Allow default imports from non-ES modules
+      "esModuleInterop": true,
+      // Don't compile JSX. Let babel do this later
+      // Use "react" to compile JSX here
+      "jsx": "preserve",
+      // Use node style resolution for node_module imports
+      "moduleResolution": "node",
+      // Remove comments from compiled js
+      "removeComments": true,
+      // Map compiled JS to TS for TS debugging
+      "sourceMap": true,
+      // Enable all strict type checking settings ,including:
+      //  - noImplicitAny
+      //  - noImplicitThis
+      //  - alwaysStrict
+      //  - strictBindCallApply
+      //  - strictNullChecks
+      //  - strictFunctionTypes
+      //  - strictPropertyInitialization
+      "strict": true,
+      // Target latest supported version of ECMAScript
+      "target": "esnext"
+    }
+  }
